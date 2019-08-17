@@ -14,14 +14,16 @@ namespace SocialApp.MVC.Controllers
     {
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IStorageService storageService;
         private readonly IConfiguration configuration;
         private readonly string storageUri;
 
-        public UserController(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public UserController(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager, IConfiguration configuration, IStorageService storageService)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
             this.configuration = configuration;
+            this.storageService = storageService;
 
             this.storageUri = configuration.GetValue<string>("ConnectionStrings:StorageUri");
         }
@@ -97,6 +99,7 @@ namespace SocialApp.MVC.Controllers
             if (userInfo.Avatar != null)
             {
                 var imageName = $"{Guid.NewGuid().ToString()}{GetFileExtension(userInfo.Avatar.FileName)}";
+                await storageService.UploadFile("users", imageName, userInfo.Avatar);
                 userInfo.AvatarUrl = $"{storageUri}/users/{imageName}";
             }
 

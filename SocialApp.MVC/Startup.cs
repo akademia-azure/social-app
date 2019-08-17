@@ -10,6 +10,7 @@ using SocialApp.MVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialApp.MVC.Contracts;
+using SocialApp.MVC.Services;
 
 namespace SocialApp.MVC
 {
@@ -43,6 +44,7 @@ namespace SocialApp.MVC
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IDataInitializer, DataInitializer>();
+            services.AddScoped<IStorageService, StorageService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

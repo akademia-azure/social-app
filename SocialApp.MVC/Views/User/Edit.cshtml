@@ -127,6 +127,22 @@
                             {
                                 <img src="https://iupac.org/wp-content/uploads/2018/05/default-avatar.png" alt="" class="img-fluid" />
                             }
+                            <form asp-action="ChangeAvatar" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="Id" type="hidden" />
+                                <input asp-for="UserId" type="hidden" />
+                                <input asp-for="AvatarUrl" class="form-control" type="hidden" />
+                                <input asp-for="Firstname" class="form-control" type="hidden" />
+                                <input asp-for="Lastname" class="form-control" type="hidden" />
+                                <input asp-for="BirthDate" class="form-control" type="hidden" />
+                                <input asp-for="City" class="form-control" type="hidden" />
+                                <input asp-for="PersonalDescription" class="form-control" type="hidden" />
+                                <input asp-for="Avatar" class="form-control-file" type="file" accept="image/*" />
+                                <hr />
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

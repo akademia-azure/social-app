@@ -10,6 +10,11 @@
                         <textarea id="postMessage" class="form-control" type="text" asp-for="Message"></textarea>
                     </div>
                 </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <input id="postFile" class="form-control-file" type="file" accept="image/*" asp-for="File" />
+                    </div>
+                </div>
             </div>
             <button name="uploadbtn" class="btn btn-primary" type="submit">Share</button>
         </form>

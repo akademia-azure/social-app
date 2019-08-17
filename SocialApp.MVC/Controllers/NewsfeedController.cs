@@ -18,13 +18,15 @@ namespace SocialApp.MVC.Controllers
     {
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IStorageService storageService;
         private readonly IConfiguration configuration;
         private readonly string storageUri;
 
-        public NewsfeedController(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public NewsfeedController(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager, IStorageService storageService, IConfiguration configuration)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
+            this.storageService = storageService;
             this.configuration = configuration;
 
             this.storageUri = configuration.GetValue<string>("ConnectionStrings:StorageUri");
@@ -53,6 +55,7 @@ namespace SocialApp.MVC.Controllers
             if (formPost.File != null)
             {
                 var imageName = $"{Guid.NewGuid().ToString()}{GetFileExtension(formPost.File.FileName)}";
+                await storageService.UploadFile("posts", imageName, formPost.File);
                 imageUrl = $"{storageUri}/posts/{imageName}";
             }
 
