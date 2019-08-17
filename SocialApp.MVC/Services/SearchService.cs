@@ -29,37 +29,88 @@ namespace SocialApp.MVC.Services
 
         public SearchViewModel Search(SearchModel searchModel)
         {
-            throw new NotImplementedException();
+            var searchViewModel = new SearchViewModel();
+
+            var searchParameters = new SearchParameters()
+            {
+                IncludeTotalResultCount = true,
+                QueryType = QueryType.Full,
+                Filter = GenerateFilters(searchModel)
+            };
+
+            var searchPhrase = string.IsNullOrEmpty(searchModel.Phrase) ? "*" : PreparePhraseToSearch(searchModel.Phrase);
+
+            var searchResults = indexClient.Documents.Search(searchPhrase, searchParameters);
+
+            searchViewModel.Count = searchResults.Count ?? 0;
+            searchViewModel.Posts = DeserializeResults(searchResults);
+
+            return searchViewModel;
         }
 
         private string GenerateFilters(SearchModel searchModel)
         {
-            throw new NotImplementedException();
+            var filters = new List<string>();
+
+            if (!string.IsNullOrEmpty(searchModel.UserName))
+                filters.Add(GenerateUserNameFilter(searchModel.UserName));
+
+            if (searchModel.LikeLess > 0)
+                filters.Add(GenerateLikeLessFilter(searchModel.LikeLess));
+
+            if (searchModel.LikeMore > 0)
+                filters.Add(GenerateLikeMoreFilter(searchModel.LikeMore));
+
+            return string.Join(" and ", filters);
         }
 
         private string GenerateLikeMoreFilter(int likeMore)
         {
-            throw new NotImplementedException();
+            return $"LikeCounter gt {likeMore}";
         }
 
         private string GenerateLikeLessFilter(int likeLess)
         {
-            throw new NotImplementedException();
+            return $"LikeCounter lt {likeLess}";
         }
 
         private string GenerateUserNameFilter(string userName)
         {
-            throw new NotImplementedException();
+            return $"UserFullname eq '{userName}'";
         }
 
         private string PreparePhraseToSearch(string phrase)
         {
-            throw new NotImplementedException();
+            var words = phrase.Split(new char[0]);
+            var phraseToSearch = string.Empty;
+
+            foreach (var word in words)
+            {
+                phraseToSearch = $"{phraseToSearch} {word}~1";
+            }
+
+            return phraseToSearch;
         }
 
         private IEnumerable<Post> DeserializeResults(DocumentSearchResult<Document> response)
         {
-            throw new NotImplementedException();
+            var results = new List<Post>();
+
+            foreach (var result in response.Results)
+            {
+                results.Add(new Post
+                {
+                    Id = int.Parse(result.Document["Id"].ToString()),
+                    UserId = result.Document["UserId"].ToString(),
+                    UserFullname = result.Document["UserFullname"].ToString(),
+                    LikeCounter = int.Parse(result.Document["LikeCounter"].ToString()),
+                    Message = result.Document["Message"].ToString(),
+                    PreviewImageUrl = result.Document["PreviewImageUrl"].ToString(),
+                    Date = DateTimeOffset.Parse(result.Document["Date"].ToString()).DateTime
+                });
+            }
+
+            return results;
         }
 
         #region AUTOMATION
