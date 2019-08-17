@@ -1,0 +1,42 @@
+﻿@model SocialApp.MVC.Models.PostViewModel
+
+@{
+    ViewData["Title"] = "Post";
+}
+
+<div class="row">
+    @if (!string.IsNullOrEmpty(Model.Post.PreviewImageUrl))
+    {
+        <img class="card-img-top" src="@Model.Post.PreviewImageUrl">
+    }
+    <div class="card-body">
+        <p class="post-date">@Model.Post.Date</p>
+        <h5 class="card-title">@Model.Post.UserFullname</h5>
+        <p class="card-text">@Model.Post.Message</p>
+    </div>
+</div>
+
+@if (!Model.CurrentUserLikePost)
+{
+    <a class="btn btn-info" href="~/post/like/@Model.Post.Id">@Model.Post.LikeCounter Like</a>
+}
+else
+{
+    <a class="btn btn-info" href="~/post/unlike/@Model.Post.Id">@Model.Post.LikeCounter Unlike</a>
+}
+
+<hr />
+
+@await Html.PartialAsync("_CommentFormPartial", new Comment() { PostId = Model.Post.Id })
+
+@if (Model.Comments != null)
+{
+    foreach (var comment in Model.Comments)
+    {
+        <div class="card-body">
+            <p class="post-date">@comment.Date</p>
+            <h5 class="card-title">@comment.Lastname</h5>
+            <p class="card-text">@comment.Message</p>
+        </div>
+    }
+}

@@ -1,0 +1,17 @@
+﻿@model SocialApp.MVC.Models.Comment
+
+<div class="row">
+    <div class="col-lg-12">
+        <form id="AddPostForm" asp-action="post">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="form-group">
+                        <textarea id="postMessage" class="form-control" type="text" asp-for="Message"></textarea>
+                    </div>
+                    <input asp-for="PostId" type="hidden" />
+                </div>
+            </div>
+            <button name="uploadbtn" class="btn btn-primary" formaction="/Post/Comment">Comment</button>
+        </form>
+    </div>
+</div>

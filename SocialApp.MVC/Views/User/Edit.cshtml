@@ -1,0 +1,137 @@
+﻿@model SocialApp.MVC.Models.UserInfo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="general-item" data-toggle="list" href="#general-list" role="tab" aria-controls="general">General</a>
+                <a class="list-group-item list-group-item-action" id="account-item" data-toggle="list" href="#account-list" role="tab" aria-controls="account">About</a>
+                <a class="list-group-item list-group-item-action" id="skills-item" data-toggle="list" href="#skills-list" role="tab" aria-controls="skills">Interests and hobbys</a>
+                <a class="list-group-item list-group-item-action" id="skills-item" data-toggle="list" href="#avatar" role="tab" aria-controls="skills">Avatar</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="general-list" role="tabpanel" aria-labelledby="general-item">
+                            <h4>General</h4>
+                            <hr>
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="Id" type="hidden" />
+                                <input asp-for="UserId" type="hidden" />
+                                <input asp-for="AvatarUrl" class="form-control" type="hidden" />
+                                <div class="form-group">
+                                    <label asp-for="Firstname" class="control-label"></label>
+                                    <input asp-for="Firstname" class="form-control" />
+                                    <span asp-validation-for="Firstname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Lastname" class="control-label"></label>
+                                    <input asp-for="Lastname" class="form-control" />
+                                    <span asp-validation-for="Lastname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="BirthDate" class="control-label"></label>
+                                    <input asp-for="BirthDate" class="form-control" />
+                                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="City" class="control-label"></label>
+                                    <input asp-for="City" class="form-control" />
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                                <input asp-for="PersonalDescription" class="form-control" type="hidden" />
+                                <input asp-for="Interests" class="form-control" type="hidden" />
+                                <input asp-for="Hobbys" class="form-control" type="hidden" />
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="account-list" role="tabpanel" aria-labelledby="account-item">
+                            <h4>About</h4>
+                            <hr>
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <input asp-for="Id" type="hidden" />
+                                <input asp-for="UserId" type="hidden" />
+                                <input asp-for="AvatarUrl" class="form-control" type="hidden" />
+                                <input asp-for="Firstname" class="form-control" type="hidden" />
+                                <input asp-for="Lastname" class="form-control" type="hidden" />
+                                <input asp-for="BirthDate" class="form-control" type="hidden" />
+                                <input asp-for="City" class="form-control" type="hidden" />
+                                <div class="form-group">
+                                    <label>Write here few words about you.</label>
+                                    <input asp-for="PersonalDescription" class="form-control" />
+                                    <span asp-validation-for="PersonalDescription" class="text-danger"></span>
+                                </div>
+
+                                <input asp-for="Interests" class="form-control" type="hidden" />
+
+                                <input asp-for="Hobbys" class="form-control" type="hidden" />
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="skills-list" role="tabpanel" aria-labelledby="skills-item">
+                            <h4>Interests and Hobbys</h4>
+                            <hr>
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="Id" type="hidden" />
+                                <input asp-for="UserId" type="hidden" />
+                                <input asp-for="AvatarUrl" class="form-control" type="hidden" />
+                                <input asp-for="Firstname" class="form-control" type="hidden" />
+                                <input asp-for="Lastname" class="form-control" type="hidden" />
+                                <input asp-for="BirthDate" class="form-control" type="hidden" />
+                                <input asp-for="City" class="form-control" type="hidden" />
+                                <input asp-for="PersonalDescription" class="form-control" type="hidden" />
+                                <div class="form-group">
+                                    <label asp-for="Interests" class="control-label"></label>
+                                    <input asp-for="Interests" class="form-control" />
+                                    <span asp-validation-for="Interests" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Hobbys" class="control-label"></label>
+                                    <input asp-for="Hobbys" class="form-control" />
+                                    <span asp-validation-for="Hobbys" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="skills-item">
+                            <h4>Avatar</h4>
+                            <hr>
+                            @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+                            {
+
+                                <img style="width:100%" src="@Model.AvatarUrl" alt="" />
+                            }
+                            else
+                            {
+                                <img src="https://iupac.org/wp-content/uploads/2018/05/default-avatar.png" alt="" class="img-fluid" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

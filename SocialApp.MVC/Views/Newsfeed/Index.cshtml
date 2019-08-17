@@ -1,7 +1,31 @@
-﻿@{
+﻿@model SocialApp.MVC.Models.NewsfeedViewModel
+
+@{
     ViewData["Title"] = "Newsfeed";
 }
 
+@await Html.PartialAsync("_FormPartial", Model.FormPostModel)
+
+<hr />
+
 <div class="row">
-   <h1>App works!</h1>
+    @foreach (var post in Model.Posts)
+    {
+        <div class="col-sm-3">
+            <div class="card">
+                @if (!string.IsNullOrEmpty(post.PreviewImageUrl))
+                {
+                    <img class="card-img-top" src="@post.PreviewImageUrl" alt="Card image cap">
+                }
+                <div class="card-body">
+                    <p class="post-date">@post.Date</p>
+                    <a href="user/profile/@post.UserId">
+                        <h5 class="card-title">@post.UserFullname</h5>
+                    </a>
+                    <p class="card-text">@post.ShortMessage</p>
+                    <a href="newsfeed/post/@post.Id" class="btn btn-primary">View full post</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>
