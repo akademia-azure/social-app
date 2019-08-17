@@ -45,6 +45,7 @@ namespace SocialApp.MVC
 
             services.AddScoped<IDataInitializer, DataInitializer>();
             services.AddScoped<IStorageService, StorageService>();
+            services.AddScoped<ISearchService, SearchService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
