@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +21,25 @@ namespace SocialApp.MVC.Services
 
         public async Task UploadFile(string containerName, string filename, IFormFile file)
         {
-            throw new NotImplementedException();
+            var blobContainer = blobClient.GetContainerReference(containerName);
+            await blobContainer.CreateIfNotExistsAsync();
+            
+            await blobContainer.SetPermissionsAsync(new BlobContainerPermissions
+            {
+                PublicAccess = BlobContainerPublicAccessType.Blob
+            });
+
+            CloudBlockBlob cloudBlockBlob = blobContainer.GetBlockBlobReference(filename);
+
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+
+                var fileToUpload = memoryStream.ToArray();
+
+                if (file != null)
+                    await cloudBlockBlob.UploadFromByteArrayAsync(fileToUpload, 0, fileToUpload.Length);
+            }
         }
     }
 }
