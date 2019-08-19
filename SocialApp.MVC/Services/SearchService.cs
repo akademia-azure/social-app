@@ -104,7 +104,7 @@ namespace SocialApp.MVC.Services
                     UserId = result.Document["UserId"].ToString(),
                     UserFullname = result.Document["UserFullname"].ToString(),
                     LikeCounter = int.Parse(result.Document["LikeCounter"].ToString()),
-                    Message = result.Document["Message"].ToString(),
+                    Message = result.Document["Message"]?.ToString(),
                     PreviewImageUrl = result.Document["PreviewImageUrl"].ToString(),
                     Date = DateTimeOffset.Parse(result.Document["Date"].ToString()).DateTime
                 });
